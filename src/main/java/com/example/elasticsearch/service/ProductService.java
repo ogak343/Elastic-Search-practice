@@ -17,7 +17,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Comparator;
 
 @Service
 @RequiredArgsConstructor
@@ -74,10 +76,11 @@ public class ProductService {
         }
 
         var data = repository.findAllById(indexMap.keySet());
-        data.sort(Comparator.comparingInt(product-> indexMap.get(product.getId())));
+        data.sort(Comparator.comparingInt(product -> indexMap.get(product.getId())));
 
         return new PageImpl<>(data.stream().map(mapper::toResponse).toList(), pageable, searched.getTotalElements());
     }
+
 
     private ProductEntity getProduct(Long id) {
         return repository.findById(id)

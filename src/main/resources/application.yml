@@ -1,8 +1,10 @@
 spring:
   application:
     name: elastic-search
+  profiles:
+    active: local
   datasource:
-    url: jdbc:postgresql://127.0.0.1:5432/postgres
+    url: jdbc:postgresql://127.0.0.1:5433/postgres
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
@@ -15,8 +17,16 @@ spring:
         cache:
           use_query_cache: false
           use_second_level_cache: false
-
   liquibase:
     default-schema: public
     liquibase-schema: public
     change-log: classpath:db/changelog/Initializer.yaml
+    url: jdbc:postgresql://127.0.0.1:5433/postgres
+    user: postgres
+    password: postgres
+  elasticsearch:
+    uris: http://localhost:9200
+  data:
+    elasticsearch:
+      repositories:
+        enabled: true

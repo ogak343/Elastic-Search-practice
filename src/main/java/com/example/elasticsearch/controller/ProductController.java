@@ -4,6 +4,7 @@ import com.example.elasticsearch.dto.request.ProductCreate;
 import com.example.elasticsearch.dto.response.ProductResponse;
 import com.example.elasticsearch.dto.request.ProductUpdate;
 import com.example.elasticsearch.service.ProductService;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -49,6 +50,7 @@ public class ProductController {
     }
 
     @GetMapping("/search")
+    @Operation(summary = "Search similar Products by name, description and category name")
     public ResponseEntity<Page<ProductResponse>> search(
             @RequestParam("query") String query,
             @RequestParam("page") Integer page,
